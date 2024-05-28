@@ -1,11 +1,17 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+
 const User = require('../models/user_model');
 const router = express.Router();
-const dotenv = require('dotenv')
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
-const SALT = parseInt(process.env.SALT)
+const SALT = parseInt(process.env.SALT);
+
+
+
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
     if (!username) return res.status(400).json({ error: "No username provided" });
@@ -23,20 +29,26 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => { // Removed extra space in route definition
+router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await User.findOne({ username });
         if (!user) return res.status(400).json({ error: "Invalid username or password" });
 
-        const isMatch = await bcrypt.compare(password, user.password); // Fixed to use await bcrypt.compare
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ error: "Invalid username or password" });
 
-        res.status(200).json({ message: "success" });
+        // Generate JWT
+        const token = jwt.sign({ userId: user._id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
+
+        res.status(200).json({ message: "success", token });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: "Error logging in" });
     }
 });
+
+
 
 
 

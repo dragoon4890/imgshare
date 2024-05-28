@@ -1,10 +1,12 @@
 "use client";
 import React, { useState } from 'react';
-
+import useAuth from '@/components/Auth/Auth';
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
+
+  useAuth();
   function handleFileChange(event) {
     const file = event.target.files[0];
     if (file) {
@@ -27,11 +29,30 @@ export default function Home() {
       setErrorMessage('Please select a file.');
       return;
     }
+    
+    const formData = new FormData();
+    formData.append('file', file);
 
-    // Here you can handle the file upload or any other form submission logic
-    console.log('Submitting file:', selectedFile);
 
-    // Clear the selected file after submission if needed
+    fetch('http://localhost:8069/upload', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}` // Assuming the token is stored in localStorage
+        },
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("sucess") // Redirect to a success page or handle as needed
+        } else {
+            alert('File upload failed');
+            console.error(response);
+        }
+    })
+    .catch(error => {
+        console.error('Error occurred during file upload:', error);
+    });
+    
     setSelectedFile(null);
     setErrorMessage('');
   }

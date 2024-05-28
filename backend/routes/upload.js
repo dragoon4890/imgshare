@@ -1,30 +1,26 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Img = require("../models/image_model");
+const Img = require('../models/image_model');
 const shortid = require('shortid');
 const multer = require('multer');
+const verifyToken = require('./auth'); // Import the JWT middleware
 
 // Configure multer for in-memory storage
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-
-
-
-
 // Route to handle file upload
-router.post('/upload', upload.single('file'), async (req, res) => {
+router.post('/upload', verifyToken, upload.single('file'), async (req, res) => {
     if (!req.file) {
-        return res.status(400).send('No file uploaded.');
+        return res.status(400).json({ error: 'No file uploaded.' });
     }
-    if (req.file.mimetype.split('/')[0] !== 'image') { // Check if the file is an image
-        return res.status(400).send('Only image files are allowed.');
+    if (req.file.mimetype.split('/')[0] !== 'image') {
+        return res.status(400).json({ error: 'Only image files are allowed.' });
     }
     const uniqueId = shortid.generate();
 
     try {
-        // Assuming `req.user.username` contains the username from the authenticated session
-        const username = req.user.username;
+        const username = req.username; // Get the user ID from the token
 
         // Create a new image document
         await Img.create({
@@ -33,19 +29,22 @@ router.post('/upload', upload.single('file'), async (req, res) => {
             link: uniqueId
         });
 
-        res.send("File uploaded successfully");
+        res.status(200).json({ message: 'File uploaded successfully' });
     } catch (error) {
-        res.status(500).send("Could not upload the file");
+        console.error('Error during file upload:', error); // Improved error logging
+        res.status(500).json({ error: 'Could not upload the file' });
     }
 });
 
-router.get("/getAll", async (req, res) => {
+// Route to get all images for the authenticated user
+router.get('/getAll', verifyToken, async (req, res) => {
     try {
-        const username = req.user.username; // Get the username from the authenticated session
+        const username = req.username; // Get the user ID from the token
         const images = await Img.find({ username: username }); // Query the database for images
         res.status(200).json(images); // Send the images as JSON response
     } catch (error) {
-        res.status(500).send("Could not retrieve the images");
+        console.error('Error retrieving images:', error); // Improved error logging
+        res.status(500).json({ error: 'Could not retrieve the images' });
     }
 });
 
