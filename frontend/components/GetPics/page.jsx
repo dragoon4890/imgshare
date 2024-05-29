@@ -11,7 +11,7 @@ const GetPics = () => {
   }, []);
 
   function getPics() {
-    fetch(`${PORT}/getAll`, {
+    fetch(`${process.env.NEXT_PUBLIC_PORT}/getAll`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -41,7 +41,7 @@ const GetPics = () => {
   }
 
   return (
-    <div className='p-4'>
+    <div className='h-[100%]'>
       {loading ? (
         // Display loading animation
         <div className="flex justify-center items-center h-screen">
