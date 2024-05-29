@@ -1,16 +1,18 @@
-// useAuth.js
-
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function useAuth() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in
-    if (!localStorage.getItem('token')) {
-      // Redirect to login page if not logged in
-      router.push('/login'); // Change '/login' to your actual login route
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+    } else {
+      setLoading(false);
     }
-  }, []);
+  }, [router]);
+
+  return loading;
 }

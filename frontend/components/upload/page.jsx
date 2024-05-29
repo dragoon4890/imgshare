@@ -1,12 +1,11 @@
-"use client";
+"use client"
 import React, { useState } from 'react';
-import useAuth from '@/components/Auth/Auth';
+
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
 
-  useAuth();
   function handleFileChange(event) {
     const file = event.target.files[0];
     if (file) {
@@ -23,7 +22,7 @@ export default function Home() {
   }
 
   async function handleSubmit(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     if (!selectedFile) {
       setErrorMessage('Please select a file.');
@@ -31,19 +30,18 @@ export default function Home() {
     }
     
     const formData = new FormData();
-    formData.append('file', file);
-
+    formData.append('file', selectedFile);
 
     fetch('http://localhost:8069/upload', {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}` // Assuming the token is stored in localStorage
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: formData
     })
     .then(response => {
         if (response.ok) {
-            alert("sucess") // Redirect to a success page or handle as needed
+            alert("success");
         } else {
             alert('File upload failed');
             console.error(response);
@@ -57,11 +55,21 @@ export default function Home() {
     setErrorMessage('');
   }
 
+ 
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <form onSubmit={handleSubmit}>
-        <input type='file' id='file' onChange={handleFileChange} />
+    <main className=" flex flex-col items-center justify-between p-2">
+      <form  onSubmit={handleSubmit} className='flex flex-col items-center gap-8'>
+        <input type='file' id='file' className='block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-sm file:border-0
+      file:text-sm file:font-semibold
+      file:bg-violet-50 file:text-violet-700
+      hover:file:bg-violet-100
+
+' onChange={handleFileChange} />
         <button type="submit">Submit</button>
+        
       </form>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
     </main>

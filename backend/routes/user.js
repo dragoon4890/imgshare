@@ -52,5 +52,7 @@ router.post('/login', async (req, res) => {
 
 
 
+
+
 console.log("User router loaded");
 module.exports = router;

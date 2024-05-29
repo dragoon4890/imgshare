@@ -48,4 +48,44 @@ router.get('/getAll', verifyToken, async (req, res) => {
     }
 });
 
+
+router.get('/:id', async (req, res) => {
+    const link = req.params.id;
+  
+    try {
+      const result = await Img.findOneAndUpdate(
+       { link},  // Assuming 'id' is the ObjectId
+        { $push: { visited: Date.now() } },  // Push the current timestamp to the 'visited' array
+        { new: true, useFindAndModify: false }  // Options to return the updated document
+      ).select('image');
+  
+      if (!result) {
+        return res.status(404).json({ message: 'Image not found' });
+      }
+  
+      res.json(result.image);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+
+
+  router.get('/analytics/:id', verifyToken , async (req, res) => {
+    const link = req.params.id;
+  
+    try {
+      const result = await Img.find({link}).select('visited')
+  
+      if (!result) {
+        return res.status(404).json({ message: 'Image not found' });
+      }
+  
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+
 module.exports = router;
