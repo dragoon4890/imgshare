@@ -18,6 +18,7 @@ const Login = () => {
         }
     }
 
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -28,9 +29,9 @@ const Login = () => {
     function handleSubmit(event) {
         event.preventDefault();
         setLoading(true); // Set loading to true when form is submitted
-
+        console.log(process.env.RENDER_PUBLIC_PORT)
         // Make API call to authenticate user
-        fetch(`${process.env.NEXT_PUBLIC_PORT}/login`, {
+        fetch(`${process.env.RENDER_PUBLIC_PORT}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
