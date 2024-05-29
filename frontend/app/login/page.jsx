@@ -27,7 +27,7 @@ const Login = () => {
         event.preventDefault();
 
         // Make API call to authenticate user
-        fetch('http://localhost:8069/login', {
+        fetch(`${process.env.PORT}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

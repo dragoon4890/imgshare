@@ -12,7 +12,7 @@ export default function useAuth() {
     } else {
       setLoading(false);
     }
-  }, [router]);
+  }, []);
 
   return loading;
 }

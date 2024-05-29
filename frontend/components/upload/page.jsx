@@ -32,7 +32,7 @@ export default function Home() {
     const formData = new FormData();
     formData.append('file', selectedFile);
 
-    fetch('http://localhost:8069/upload', {
+    fetch(`${PORT}/upload`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`

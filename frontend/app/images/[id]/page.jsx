@@ -10,7 +10,7 @@ const Page = () => {
   }, []);
 
   function getPic() {
-    fetch(`http://localhost:8069/${window.location.pathname.replace('/images/','')}`, {
+    fetch(`${process.env.PORT}${window.location.pathname.replace('/images/','')}`, {
       method: 'GET',
     })
       .then(response => response.json())
@@ -38,6 +38,7 @@ const Page = () => {
         <img 
           src={`data:image/jpeg;base64,${imageData}`} 
           alt="Fetched from API" 
+          className='px-3 py-3 bg-white'
         />
       ) : (
         !errorMessage && <p>Loading...</p>

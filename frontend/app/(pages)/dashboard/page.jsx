@@ -2,12 +2,9 @@
 
 import Home from '@/components/upload/page';
 import GetPics from '@/components/GetPics/page';
+import useAuth from '@/components/Auth/Auth';
 
 const Page = () => {
- 
-  
-
-
 
   return (
     <div className='h-screen w-screen flex flex-col items-center gap-8 '>

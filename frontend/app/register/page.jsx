@@ -20,7 +20,7 @@ const Register = () => {
         event.preventDefault();
 
         // Make API call to authenticate user
-        fetch('http://localhost:8069/register', {
+        fetch(`${process.env.PORT}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

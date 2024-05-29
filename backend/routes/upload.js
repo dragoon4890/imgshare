@@ -75,7 +75,7 @@ router.get('/:id', async (req, res) => {
     const link = req.params.id;
   
     try {
-      const result = await Img.find({link}).select('visited')
+      const result = await Img.find({link})
   
       if (!result) {
         return res.status(404).json({ message: 'Image not found' });
