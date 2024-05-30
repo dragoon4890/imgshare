@@ -1,9 +1,13 @@
 {
 
     "rewrites":[
-        {
+        {       
             "source":"/(.*)",
             "destination":"/"
+        },{
+            "source": "https://(.*)",
+            "destination": "https://(.*)"
         }
+        
     ]
 }
