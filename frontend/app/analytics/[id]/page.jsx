@@ -11,7 +11,7 @@ const Page = () => {
   }, []);
 
   function getPic() {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${window.location.pathname}`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/analytics/${params.id}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`

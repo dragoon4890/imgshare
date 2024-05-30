@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 
-const Page = () => {
+const Page = ({params}) => {
   const [imageData, setImageData] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -10,7 +10,7 @@ const Page = () => {
   }, []);
 
   function getPic() {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${window.location.pathname.replace('/images','')}`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${params.id}`, {
       method: 'GET',
     })
       .then(response => response.json())
@@ -32,7 +32,7 @@ const Page = () => {
   }
 
   return (
-    <div>
+    <div className='flex flex-col items-center justify-center'>
       {errorMessage && <p>{errorMessage}</p>}
       {imageData ? (
         <img 

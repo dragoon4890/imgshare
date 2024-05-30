@@ -1,13 +1,16 @@
 {
 
     "rewrites":[
+        {
+            "source": "/analytics/:path*",
+            "destination": "/analytics/:path"
+        }, {
+            "source": "/images/:path*",
+            "destination": "/images/:path"
+        },
         {       
             "source":"/(.*)",
             "destination":"/"
-        },{
-            "source": "/analytics/:path*",
-            "destination": "https://imgshare.onrender.com/analytics/:path"
         }
-        
     ]
 }
