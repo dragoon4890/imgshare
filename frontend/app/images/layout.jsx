@@ -21,7 +21,9 @@ export default function RootLayout({ children }) {
 
   return (
     <section>
-      <Navbar />
+      <div className='text-5xl w-screen bg-white h flex  flex-row justify-around items-center'>
+       <h1 className='mb-6 mt-6'> ImgShare</h1>
+        </div>
       {children}
     </section>
   );
