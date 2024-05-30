@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-const Page = () => {
+const Page = ({params}) => {
   const [imageData, setImageData] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [link, setLink] = useState('');
