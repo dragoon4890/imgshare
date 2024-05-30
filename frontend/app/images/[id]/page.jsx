@@ -10,7 +10,7 @@ const Page = () => {
   }, []);
 
   function getPic() {
-    fetch(`${process.env.NEXT_PUBLIC_PORT}${window.location.pathname.replace('/images/','')}`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${window.location.pathname.replace('/images/','')}`, {
       method: 'GET',
     })
       .then(response => response.json())

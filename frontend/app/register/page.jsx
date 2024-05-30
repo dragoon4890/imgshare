@@ -20,7 +20,7 @@ const Register = () => {
         event.preventDefault();
 
         // Make API call to authenticate user
-        fetch(`${process.env.NEXT_PUBLIC_PORT}/register`, {
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

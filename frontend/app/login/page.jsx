@@ -30,7 +30,7 @@ const Login = () => {
         event.preventDefault();
         setLoading(true); // Set loading to true when form is submitted
         // Make API call to authenticate user
-        fetch(`${process.env.NEXT_PUBLIC_PORT}/login`, {
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

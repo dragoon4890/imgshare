@@ -11,7 +11,7 @@ const GetPics = () => {
   }, []);
 
   function getPics() {
-    fetch(`${process.env.NEXT_PUBLIC_PORT}/getAll`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/getAll`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
