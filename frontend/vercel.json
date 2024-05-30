@@ -5,8 +5,8 @@
             "source":"/(.*)",
             "destination":"/"
         },{
-            "source": "https://(.*)",
-            "destination": "https://(.*)"
+            "source": "/analytics/:path*",
+            "destination": "https://imgshare.onrender.com/analytics/:path"
         }
         
     ]
