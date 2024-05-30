@@ -85,7 +85,7 @@ const GetPics = () => {
                     render={() => tooltipContent[index] || 'Click to copy'}
                     afterShow={() => setTimeout(() => setTooltipContent(prev => ({ ...prev, [index]: '' })), 399)}
                   />
-                <button href={`${baseURL}${"/analytics/"}${pic.link}`} className="py-2 mt-3 px-1 h-50 bg-slate-200 text-black text-sm rounded-md hover:bg-black/[0.8] hover:shadow-lg"> See details</button>
+                <a href={`${baseURL}${"/analytics/"}${pic.link}`} className="py-2 mt-3 px-1 h-50 bg-slate-200 text-black text-sm rounded-md hover:bg-black/[0.8] hover:shadow-lg"> See details</a>
               </div>
             ))}
           </div>
