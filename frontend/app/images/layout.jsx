@@ -1,26 +1,28 @@
 "use client"
-import React from 'react';
-
-
+import React, { useState, useEffect } from 'react';
 
 import Navbar from '@/components/Navbar/page';
-import useAuth from '@/components/Auth/Auth';
-
-
-
-
 
 export default function RootLayout({ children }) {
-  const loading = useAuth();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+   
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   if (loading) {
-    return <div className=' h-screen w-screen'>Loading...</div>; // Loading indicator while checking authentication
+    return <div className='h-screen w-screen'>Loading...</div>; 
   }
 
   return (
     <section>
-        <Navbar />
-        {children}
-     </section>
+      <Navbar />
+      {children}
+    </section>
   );
 }
